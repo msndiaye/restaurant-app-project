@@ -46,7 +46,9 @@ function CreateForm({
             <div className="row mb-3">
                 <label htmlFor="reservationDate" className="col-sm-2 col-form-label">Date of reservation:</label>
                 <div className="col-sm-10">
-                    <input type="date" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}"
+                    <input type="date"
+                        //  placeholder="YYYY-MM-DD"
+                        //  pattern="\d{4}-\d{2}-\d{2}"
                         name="reservation_date"
                         className="form-control" id="reservationDate"
                         onChange={handleReservationDataChange}
