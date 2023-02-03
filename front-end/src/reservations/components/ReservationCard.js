@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom"
 
 function ReservationCard({ first_name,
     last_name,
@@ -21,6 +21,13 @@ function ReservationCard({ first_name,
                 <li className="list-group-item">{reservation_date}</li>
                 <li className="list-group-item">{reservation_time}</li>
                 <li className="list-group-item">{people}</li>
+                <li className="list-group-item">
+                    <Link to={`/reservations/${reservation_id}/seat`}>
+                        <button href={`/reservations/${reservation_id}/seat`}>
+                            Seat
+                        </button>
+                    </Link>
+                </li>
             </ul>
         </div>
     )

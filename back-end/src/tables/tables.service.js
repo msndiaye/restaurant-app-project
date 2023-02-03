@@ -6,10 +6,15 @@ async function create(table) {
     return tableCreated
 }
 
+async function list() {
 
+    const tables = await knex("tables").select("*").orderBy("table_name", "asc")
+    return tables
+}
 
 
 
 module.exports = {
-    create
+    create,
+    list
 }

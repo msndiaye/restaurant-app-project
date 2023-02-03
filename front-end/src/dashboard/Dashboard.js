@@ -7,6 +7,8 @@ import ReservationsButtons from "../reservations/components/ReservationsButton"
 import moment from "moment"
 import Loader from "../layout/Loader"
 import "./styles/style.css"
+import ErrorAlertContainer from "../errors/ErrorAlertContainer";
+import TablesCards from "../tables/components/TableCards";
 /**
  * Defines the dashboard page.
  * @param date
@@ -22,7 +24,9 @@ function Dashboard() {
 
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
+  const [tablesError, setTablesError] = useState(null)
   const [changeDate, setChangeDate] = useState(reservationDate)
+  const [tables, setTables] = useState([])
 
 
   // for loading reservations data
@@ -66,6 +70,52 @@ function Dashboard() {
 
 
 
+  useEffect(() => {
+    const abortController = new AbortController()
+    setTables([])
+    setReservationsError(null);
+
+    async function loadTables() {
+
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/tables`,
+          { signal: abortController.signal }
+        );
+        const { data, error } = await response.json();
+        if (error) {
+          throw { message: error }
+        }
+        if (data.length === 0) {
+          throw { message: "No table available at this time" }
+        }
+        setTables(data)
+      }
+      catch (error) {
+        if (error.name === "AbortError") {
+          // Ignore `AbortError`
+          console.log("Aborted");
+        } else {
+          setTablesError(error)
+        }
+      }
+
+
+    }
+
+    loadTables()
+    return () => {
+      console.log("cleanup");
+      abortController.abort(); // Cancels any pending request or response
+    };
+
+  }, [])
+
+
+
+  // console.log("tables", tables)
+
+
   function handleNextDate() { setChangeDate((changeDate) => next(changeDate)) }
   function handleTodayDate() { setChangeDate(() => today()) }
   function handlePreviousDate() { setChangeDate((changeDate) => previous(changeDate)) }
@@ -76,13 +126,27 @@ function Dashboard() {
       <div className="d-md-flex mb-3">
         <h4 className="mb-0">Reservations for date</h4>
       </div>
-      <ErrorAlert error={reservationsError} />
-      {!reservationsError && <ReservationsCard reservations={reservations} />}
-      {reservations.length === 0 && !reservationsError ? <Loader /> : null}
+
+      <ErrorAlertContainer
+        reservationsError={reservationsError}
+        tablesError={tablesError} />
+
       <ReservationsButtons
         handleNextDate={handleNextDate}
         handleTodayDate={handleTodayDate}
         handlePreviousDate={handlePreviousDate} />
+
+      {reservations.length === 0 && !reservationsError ? <Loader /> : null}
+
+      <ReservationsCard
+        reservations={reservations}
+        reservationsError={reservationsError}
+      />
+      <TablesCards
+        tables={tables}
+        tablesError={tablesError}
+      />
+
     </main>
   );
 }

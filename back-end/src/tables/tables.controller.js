@@ -68,7 +68,16 @@ async function create(req, res) {
 }
 
 
+async function list(req, res) {
+    const tables = await service.list()
+    res.json({
+        data: tables
+    })
+
+}
+
 
 module.exports = {
-    create: [dataExists, tableNameExists, tableNameCharterLength, capacityExists, asyncErrorBoundary(create)]
+    create: [dataExists, tableNameExists, tableNameCharterLength, capacityExists, asyncErrorBoundary(create)],
+    list: asyncErrorBoundary(list)
 }
