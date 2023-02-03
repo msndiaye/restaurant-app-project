@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CreateForm from "../../reusecomponents/CreateForm";
 import FormDataError from "../../errors/FormDataError";
-import { createReservationService } from "../../services/createReservationService";
+import { create } from "../../services/create";
 import { useHistory } from "react-router";
 
 function CreateReservation() {
@@ -36,7 +36,7 @@ function CreateReservation() {
         e.preventDefault()
 
         try {
-            const { error } = await createReservationService(reservationFormData)
+            const { error } = await create(reservationFormData, "reservations")
 
             if (error) {
                 throw error

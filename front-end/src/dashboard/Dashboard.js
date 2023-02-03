@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import { today, next, previous } from "../utils/date-time";
 import useQuery from "../utils/useQuery";
@@ -16,7 +15,7 @@ import "./styles/style.css"
  */
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5001";
 
-function Dashboard({ date }) {
+function Dashboard() {
 
   // this will get the date in the query string or defaulted to today's date
   const reservationDate = useQuery().get("date") || today()
@@ -26,6 +25,7 @@ function Dashboard({ date }) {
   const [changeDate, setChangeDate] = useState(reservationDate)
 
 
+  // for loading reservations data
   useEffect(() => {
     const abortController = new AbortController()
     setReservationsError(null);
