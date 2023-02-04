@@ -211,13 +211,45 @@ async function list(req, res) {
     }
   })
   // 
-
   res.json({
     data: reservations,
   });
 }
 
+
+async function reservationExists(req, res, next) {
+  const { reservation_id } = req.params
+
+  const reservation = await service.read(Number(reservation_id))
+  if (reservation) {
+    res.locals.reservation = reservation
+    return next()
+  }
+
+  next({
+    status: 404,
+    message: `reservation_id ${reservation_id} cannot be found`
+  })
+
+}
+
+
+
+function read(req, res) {
+  const { reservation } = res.locals
+
+  // console.log('reservation', reservation)
+  res.json({
+    data: reservation
+  })
+}
+
+
+
+
+
 module.exports = {
   list: asyncErrorBoundary(list),
+  read: [asyncErrorBoundary(reservationExists), read],
   create: [dataExists, firstNameExists, lastNameExists, mobileNumberExists, reservationDateExists, daysWhenIsOperational, reservationTimeExists, timeWhenIsOperational, peopleExists, asyncErrorBoundary(create)]
 };

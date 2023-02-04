@@ -1,5 +1,5 @@
 import { Route, Switch, Redirect } from "react-router-dom"
-import ChooseSeat from "../components/ChooseSeat"
+import Choosetables from "../../seats/ChooseTables"
 import CreateReservation from "../components/CreateReservation"
 
 
@@ -11,10 +11,10 @@ function ReservationsRoute() {
                 <Redirect to={"/dashboard"} />
             </Route>
             <Route path="/reservations/new">
-                <CreateReservation path="/reservations/:reservation_id/seat" />
+                <CreateReservation />
             </Route>
-            <Route>
-                <ChooseSeat />
+            <Route path="/reservations/:reservation_id/seat">
+                <Choosetables />
             </Route>
         </Switch>
     )

@@ -1,3 +1,4 @@
+const knex = require("../db/connection")
 const db = require("../db/connection")
 
 async function create(reservation) {
@@ -13,8 +14,14 @@ async function list(date) {
 
 }
 
+async function read(reservation_id) {
+
+    const reservation = await knex("reservations").select("*").where({ reservation_id }).first()
+    return reservation
+}
 
 module.exports = {
     create,
-    list
+    list,
+    read
 }
