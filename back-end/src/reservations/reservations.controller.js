@@ -105,8 +105,8 @@ function daysWhenIsOperational(req, res, next) {
 function timeWhenIsOperational(req, res, next) {
   const { data: { reservation_time } = {} } = req.body
 
-  const openTime = moment("10:31", "HH:mm")
-  const beforeClosedTime = moment("21:31", "HH:mm")
+  const openTime = moment("10:29", "HH:mm")
+  const beforeClosedTime = moment("21:29", "HH:mm")
   const reservationTime = moment(reservation_time, "HH:mm") //24h
   const validReservationTime = reservationTime.isBetween(openTime, beforeClosedTime)
 
@@ -116,7 +116,7 @@ function timeWhenIsOperational(req, res, next) {
 
   next({
     status: 400,
-    message: "the reservation_time is between 10:31am to 21:29pm"
+    message: "the reservation_time is between 10:30am to 21:30pm"
   })
 
 

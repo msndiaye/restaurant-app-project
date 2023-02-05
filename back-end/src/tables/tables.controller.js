@@ -137,6 +137,46 @@ async function update(req, res) {
 
 }
 
+
+
+
+async function tableExists(req, res, next) {
+    const { table_id } = req.params
+    const table = await service.readTable(Number(table_id))
+
+    if (table) {
+        res.locals.table = table
+        return next()
+    }
+    next({
+        status: 404,
+        message: `The table ${table_id} is not found`
+    })
+}
+
+
+async function tableOccupied(req, res, next) {
+    const { table: { reservation_id } } = res.locals
+    if (!reservation_id) {
+        return next({
+            status: 400,
+            message: "Table is not occupied"
+
+        })
+    }
+    next()
+}
+
+
+async function removeTableFromReservation(req, res) {
+    const { table_id } = req.params
+    const tables = await service.removeTable(Number(table_id))
+    res.json({
+        data: tables
+    })
+
+}
+
 async function list(req, res) {
     const tables = await service.list()
     res.json({
@@ -152,5 +192,8 @@ module.exports = {
     update: [dataExists, reservationIdExists, reservationExists,
         asyncErrorBoundary(enoughCapacity),
         asyncErrorBoundary(isOccupied),
-        asyncErrorBoundary(update)]
+        asyncErrorBoundary(update)],
+    delete: [asyncErrorBoundary(tableExists),
+    asyncErrorBoundary(tableOccupied),
+    asyncErrorBoundary(removeTableFromReservation)]
 }

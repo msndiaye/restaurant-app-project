@@ -27,7 +27,7 @@ function Tables({ tables, handleTableChange, handleSubmitTableForm, table }) {
                 <input type="submit" value="Submit" />
 
             </form>
-            <input type="submit" value="cancel" onClick={() => history.goBack()} />
+            <input type="button" value="Cancel" onClick={() => history.goBack()} />
         </>
     )
 

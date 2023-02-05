@@ -1,6 +1,6 @@
 import React from "react";
 import TableCard from "./TableCard"
-function TablesCards({ tables, tablesError }) {
+function TablesCards({ tables, tablesError, removeTable }) {
 
     if (!tablesError) {
 
@@ -15,6 +15,7 @@ function TablesCards({ tables, tablesError }) {
                             capacity={capacity}
                             reservation_id={reservation_id}
                             table_id={table_id}
+                            removeTable={removeTable}
                         />
                     })
                 }

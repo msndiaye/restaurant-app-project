@@ -27,7 +27,7 @@ function Dashboard() {
   const [tablesError, setTablesError] = useState(null)
   const [changeDate, setChangeDate] = useState(reservationDate)
   const [tables, setTables] = useState([])
-
+  const [removeTableError, setRemoveTableError] = useState(null)
 
   // for loading reservations data
   useEffect(() => {
@@ -112,6 +112,38 @@ function Dashboard() {
   }, [])
 
 
+  async function removeTable(table_id) {
+
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/tables/${table_id}/seat`, {
+
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+
+      );
+      const { data, error } = await response.json();
+      if (error) {
+        throw { message: error }
+      }
+
+      const tablesData = await fetch(`${API_BASE_URL}/tables`)
+      const { data: getTaables } = await tablesData.json()
+      console.log("tabless", tablesData)
+      setTables(getTaables)
+      // setTables(data)
+
+    }
+    catch (error) {
+
+      console.log('errrrorr', error)
+      setRemoveTableError(error)
+    }
+
+  }
 
   // console.log("tables", tables)
 
@@ -129,7 +161,9 @@ function Dashboard() {
 
       <ErrorAlertContainer
         reservationsError={reservationsError}
-        tablesError={tablesError} />
+        tablesError={tablesError}
+      // removeTableError={removeTableError}
+      />
 
       <ReservationsButtons
         handleNextDate={handleNextDate}
@@ -145,6 +179,7 @@ function Dashboard() {
       <TablesCards
         tables={tables}
         tablesError={tablesError}
+        removeTable={removeTable}
       />
 
     </main>

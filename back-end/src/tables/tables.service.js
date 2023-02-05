@@ -29,10 +29,19 @@ async function update(table_id, updated) {
 
 }
 
+
+async function removeTable(table_id) {
+    await knex("tables").update({ reservation_id: null }).where({ table_id }).returning("*")
+    const tables = await knex("tables").select("*")
+    return tables
+
+}
+
 module.exports = {
     create,
     list,
     readReservation,
     readTable,
-    update
+    update,
+    removeTable
 }

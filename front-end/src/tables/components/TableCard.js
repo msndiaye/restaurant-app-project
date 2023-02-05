@@ -1,10 +1,22 @@
 import React from "react";
 
 
-function TableCard({ table_name, capacity, reservation_id, table_id }) {
+
+
+
+function TableCard({ table_name, capacity, reservation_id, table_id, removeTable }) {
+
+
+    function modal() {
+
+        if (window.confirm("Is this table ready to seat new guests? This cannot be undone.")) {
+            removeTable(table_id)
+        }
+    }
 
     return (
         <>
+
             <h3 style={{ textAlign: "center" }}>Table# {table_id}</h3>
             <br />
             <table className="table">
@@ -27,6 +39,11 @@ function TableCard({ table_name, capacity, reservation_id, table_id }) {
             </table>
             <br />
             <hr />
+            <button type="button" className="btn btn-secondary"
+                data-table-id-finish={table_id}
+                onClick={modal}
+            >Finish</button>
+            <br />
             <br />
         </>
     )
