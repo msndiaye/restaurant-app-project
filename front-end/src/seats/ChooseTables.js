@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import TableDataError from "../errors/FormDataError"
 import Tables from "./Tables";
 import Loader from "../layout/Loader"
-import { useParams, useRouteMatch } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5001";
 
@@ -13,9 +13,9 @@ function Choosetables() {
     const [tablesError, setTablesError] = useState(null)
     const [reservation, setReservation] = useState({})
     const [table, setTable] = useState("")
-
+    const [freeTable, setFreeTable] = useState("")
     const { reservation_id } = useParams()
-
+    const history = useHistory()
     // console.log(reservation_id)
     // console.log("reservation_id", reservation_id, useParams(), useRouteMatch())
 
@@ -104,10 +104,61 @@ function Choosetables() {
 
 
 
-    function handleTableChange({ target: { value } }) { setTable(value) }
+    function handleTableChange({ target: { value } }) {
+        setFreeTable("")
+        setTable(value)
+    }
 
-    function handleSubmitTableForm(e) {
-        e.prevent()
+    async function handleSubmitTableForm(e) {
+        e.preventDefault()
+        const { people } = reservation
+        const { capacity, reservation_id: tableReservationId } = tables.find(({ table_id }) => table_id === Number(table))
+
+
+        if (tableReservationId) {
+            setFreeTable("the table seat is taken")
+
+
+        } else if (people <= capacity) {
+
+
+
+
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/tables/${table}/seat`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            data: {
+                                reservation_id
+                            }
+                        }),
+                    }
+                );
+                const { error } = await response.json();
+                if (error) {
+                    throw error
+                }
+
+                history.push("/dashboard")
+            }
+            catch (error) {
+
+                setFreeTable(error)
+
+            }
+
+
+        }
+        else {
+
+            setFreeTable("there is not enough capacity to host")
+        }
+
 
     }
 
@@ -126,6 +177,7 @@ function Choosetables() {
             /> : null}
 
             {!tablesError && !tables.length ? <Loader /> : null}
+            {freeTable && freeTable}
         </div>
     )
 

@@ -14,6 +14,7 @@ function Tables({ tables, handleTableChange, handleSubmitTableForm, table }) {
                     aria-label=".form-select-lg example"
                     onChange={handleTableChange}
                     value={table}
+                    name="table_id"
                 >
                     {
                         tables.map(({ table_name, capacity, table_id }, i) => {

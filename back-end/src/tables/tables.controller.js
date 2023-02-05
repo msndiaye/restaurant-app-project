@@ -67,6 +67,75 @@ async function create(req, res) {
     })
 }
 
+function reservationIdExists(req, res, next) {
+    const { data: { reservation_id } = {} } = req.body
+    if (!reservation_id) {
+        return next({
+            status: 400,
+            message: "there is not a reservation_id"
+        })
+    }
+    next()
+}
+
+
+async function reservationExists(req, res, next) {
+    const { data: { reservation_id } = {} } = req.body
+    const reservation = await service.readReservation(Number(reservation_id))
+    if (reservation) {
+        res.locals.reservation = reservation
+        return next()
+    }
+
+    next({
+        status: 404,
+        message: `There is no reservation_id ${reservation_id}`
+    })
+}
+
+
+async function enoughCapacity(req, res, next) {
+    const { table_id } = req.params
+    const { reservation: { people } } = res.locals
+    const { capacity, reservation_id } = await service.readTable(Number(table_id))
+    if (people <= capacity) {
+        res.locals.reservation_id = reservation_id
+        return next()
+    }
+
+    next({
+        status: 400,
+        message: "There is not enough capacity"
+    })
+
+}
+
+
+async function isOccupied(req, res, next) {
+
+    const { reservation_id } = res.locals
+
+    if (reservation_id) {
+        return next({
+            status: 400,
+            message: "the table is occupied"
+        })
+    }
+
+    next()
+
+}
+
+
+async function update(req, res) {
+    const { table_id } = req.params
+    const { data: { reservation_id } = {} } = req.body
+    const table = await service.update(Number(table_id), Number(reservation_id))
+    res.json({
+        data: table
+    })
+
+}
 
 async function list(req, res) {
     const tables = await service.list()
@@ -79,5 +148,9 @@ async function list(req, res) {
 
 module.exports = {
     create: [dataExists, tableNameExists, tableNameCharterLength, capacityExists, asyncErrorBoundary(create)],
-    list: asyncErrorBoundary(list)
+    list: asyncErrorBoundary(list),
+    update: [dataExists, reservationIdExists, reservationExists,
+        asyncErrorBoundary(enoughCapacity),
+        asyncErrorBoundary(isOccupied),
+        asyncErrorBoundary(update)]
 }

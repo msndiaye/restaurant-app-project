@@ -3,6 +3,7 @@ import CreateForm from "../../reusecomponents/CreateForm";
 import FormDataError from "../../errors/FormDataError";
 import { create } from "../../services/create";
 import { useHistory } from "react-router";
+import moment from "moment"
 
 function CreateReservation() {
 
@@ -34,6 +35,16 @@ function CreateReservation() {
 
     async function handleSubmitReservationForm(e) {
         e.preventDefault()
+
+
+        // const openTime = moment("10:30", "HH:mm")
+        // const beforeClosedTime = moment("21:30", "HH:mm")
+        // const reservationTime = moment(reservationFormData.reservation_time, "HH:mm") //24h
+        // const validReservationTime = reservationTime.isBetween(openTime, beforeClosedTime)
+        // const currentDate = moment(reservationFormData.reservation_date, "YYYY-MM-DD").format('dddd')
+        // const pastDate = moment(reservationFormData.reservation_date, "YYYY-MM-DD").isBefore(moment().format("YYYY-MM-DD"))
+
+
 
         try {
             const { error } = await create(reservationFormData, "reservations")

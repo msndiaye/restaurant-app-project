@@ -81,9 +81,9 @@ function reservationDateExists(req, res, next) {
 
 function daysWhenIsOperational(req, res, next) {
   const { data: { reservation_date } = {} } = req.body
-  const date = moment(reservation_date, "YYYY-MM-DD").format('dddd')
+  const currentDate = moment(reservation_date, "YYYY-MM-DD").format('dddd')
   const pastDate = moment(reservation_date, "YYYY-MM-DD").isBefore(moment().format("YYYY-MM-DD"))
-  if (date === "Tuesday") {
+  if (currentDate === "Tuesday") {
     return next({
       status: 400,
       message: "The reservation date is a Tuesday as the restaurant is closed on Tuesdays."
@@ -105,8 +105,8 @@ function daysWhenIsOperational(req, res, next) {
 function timeWhenIsOperational(req, res, next) {
   const { data: { reservation_time } = {} } = req.body
 
-  const openTime = moment("10:30", "HH:mm")
-  const beforeClosedTime = moment("21:30", "HH:mm")
+  const openTime = moment("10:31", "HH:mm")
+  const beforeClosedTime = moment("21:31", "HH:mm")
   const reservationTime = moment(reservation_time, "HH:mm") //24h
   const validReservationTime = reservationTime.isBetween(openTime, beforeClosedTime)
 
