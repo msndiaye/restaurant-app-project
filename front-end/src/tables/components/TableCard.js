@@ -19,6 +19,10 @@ function TableCard({ table_name, capacity, reservation_id, table_id, removeTable
 
             <h3 style={{ textAlign: "center" }}>Table# {table_id}</h3>
             <br />
+            {reservation_id && <h3>Taken by reservation number:{reservation_id}</h3>
+            }
+            <br />
+
             <table className="table">
                 <thead className="table-dark">
                     <tr>

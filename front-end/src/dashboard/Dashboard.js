@@ -113,6 +113,7 @@ function Dashboard() {
 
 
   async function removeTable(table_id) {
+    setRemoveTableError(null)
 
     try {
       const response = await fetch(
@@ -126,27 +127,23 @@ function Dashboard() {
 
       );
       const { data, error } = await response.json();
+
       if (error) {
+
         throw { message: error }
       }
 
       const tablesData = await fetch(`${API_BASE_URL}/tables`)
       const { data: getTaables } = await tablesData.json()
-      console.log("tabless", tablesData)
       setTables(getTaables)
-      // setTables(data)
 
     }
     catch (error) {
 
-      console.log('errrrorr', error)
       setRemoveTableError(error)
     }
 
   }
-
-  // console.log("tables", tables)
-
 
   function handleNextDate() { setChangeDate((changeDate) => next(changeDate)) }
   function handleTodayDate() { setChangeDate(() => today()) }
@@ -162,7 +159,7 @@ function Dashboard() {
       <ErrorAlertContainer
         reservationsError={reservationsError}
         tablesError={tablesError}
-      // removeTableError={removeTableError}
+        removeTableError={removeTableError}
       />
 
       <ReservationsButtons
