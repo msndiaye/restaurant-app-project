@@ -14,7 +14,8 @@ function ReservationsCard({ reservations, reservationsError }) {
                         mobile_number,
                         reservation_date,
                         reservation_time,
-                        people
+                        people,
+                        status
                     }) => {
 
                         return <ReservationCard key={reservation_id}
@@ -26,6 +27,7 @@ function ReservationsCard({ reservations, reservationsError }) {
                             reservation_time={reservation_time}
                             people={people}
                             reservation_id={reservation_id}
+                            status={status}
                         />
                     })
                 }
