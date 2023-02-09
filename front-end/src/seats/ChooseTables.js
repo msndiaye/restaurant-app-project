@@ -144,6 +144,26 @@ function Choosetables() {
                     throw error
                 }
 
+
+
+
+                const addSeated = await fetch(
+                    `${API_BASE_URL}/reservations/${reservation_id}/status`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            data: {
+                                status: "seated"
+                            }
+                        }),
+                    }
+                );
+
+                const getSeated = await addSeated.json()
+                console.log("get", getSeated)
                 history.push("/dashboard")
             }
             catch (error) {

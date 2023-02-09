@@ -9,6 +9,8 @@ import Loader from "../layout/Loader"
 import "./styles/style.css"
 import ErrorAlertContainer from "../errors/ErrorAlertContainer";
 import TablesCards from "../tables/components/TableCards";
+import { listReservations } from "../utils/api";
+import { useHistory } from "react-router-dom";
 /**
  * Defines the dashboard page.
  * @param date
@@ -29,6 +31,7 @@ function Dashboard() {
   const [tables, setTables] = useState([])
   const [removeTableError, setRemoveTableError] = useState(null)
 
+  const history = useHistory()
   // for loading reservations data
   useEffect(() => {
     const abortController = new AbortController()
@@ -112,7 +115,7 @@ function Dashboard() {
   }, [])
 
 
-  async function removeTable(table_id) {
+  async function removeTable(table_id, reservation_id) {
     setRemoveTableError(null)
 
     try {
@@ -133,9 +136,30 @@ function Dashboard() {
         throw { message: error }
       }
 
-      const tablesData = await fetch(`${API_BASE_URL}/tables`)
-      const { data: getTaables } = await tablesData.json()
-      setTables(getTaables)
+
+
+      await fetch(
+        `${API_BASE_URL}/reservations/${reservation_id}/status`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            data: {
+              status: "finished"
+            }
+          }),
+        }
+      );
+
+
+      history.push("/reservations")
+
+
+
+
+
 
     }
     catch (error) {

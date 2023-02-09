@@ -25,13 +25,18 @@ async function readTable(table_id) {
 async function update(table_id, updated) {
 
     const [table] = await knex("tables").where({ table_id }).update({ reservation_id: updated }).returning("*")
+    await knex("reservations").update({ status: "seated" }).where({ reservation_id: table.reservation_id })
     return table
 
 }
 
 
-async function removeTable(table_id) {
+async function removeTable(table_id, reservation_id) {
     await knex("tables").update({ reservation_id: null }).where({ table_id }).returning("*")
+    if (reservation_id) {
+        await knex("reservations").update({ status: "finished" }).where({ reservation_id })
+
+    }
     const tables = await knex("tables").select("*")
     return tables
 

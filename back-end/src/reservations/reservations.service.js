@@ -20,8 +20,16 @@ async function read(reservation_id) {
     return reservation
 }
 
+async function update(reservation_id, status) {
+
+    const [reservation] = await knex("reservations").update({ status }).where({ reservation_id }).returning("*")
+    return reservation
+}
+
+
 module.exports = {
     create,
     list,
-    read
+    read,
+    update
 }

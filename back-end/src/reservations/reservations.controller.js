@@ -200,16 +200,17 @@ async function list(req, res) {
   let reservations = await service.list(listByDate)
 
   // im converting the date and time from the database to a more readable format
-  reservations = reservations.map((reservation) => {
-    const { reservation_date, reservation_time } = reservation
+  reservations = reservations.filter(({ status }) => status !== "finished")
+    .map((reservation) => {
+      const { reservation_date, reservation_time } = reservation
 
-    return {
-      ...reservation,
-      reservation_date: moment(reservation_date).format("MM-DD-YYYY"),
-      reservation_time: moment(reservation_time, "HH:mm").format("hh:mm A")
+      return {
+        ...reservation,
+        reservation_date: moment(reservation_date).format("MM-DD-YYYY"),
+        reservation_time: moment(reservation_time, "HH:mm").format("hh:mm A")
 
-    }
-  })
+      }
+    })
   // 
   res.json({
     data: reservations,
@@ -234,11 +235,58 @@ async function reservationExists(req, res, next) {
 }
 
 
+function validStatusExists(req, res, next) {
+  const { data: { status = "booked" } = {} } = req.body
+  if (status === "booked") {
+    return next()
+  }
+  next({
+    status: 400,
+    message: `The reservation status ${status} is not allowed`
+  })
+}
+
+function unkownStatusExists(req, res, next) {
+  const { data: { status } = {} } = req.body
+  if (status === "unknown") {
+    return next({
+      status: 400,
+      message: "The status unknown is not allowed"
+    })
+  }
+  next()
+}
+
+function finishedStatusExists(req, res, next) {
+  const { reservation: { status } } = res.locals
+  if (status === "finished") {
+    return next({
+      status: 400,
+      message: "The reservation is finished,it cannot be updated"
+    })
+  }
+  next()
+}
+
+
+async function update(req, res) {
+  const { data: { status } = {} } = req.body
+  const { reservation_id } = req.params
+
+  const reservation = await service.update(Number(reservation_id), status)
+
+
+  // console.log("reservation", reservation)
+  res.json({
+    data: reservation
+  })
+
+}
+
 
 function read(req, res) {
   const { reservation } = res.locals
 
-  // console.log('reservation', reservation)
   res.json({
     data: reservation
   })
@@ -251,5 +299,6 @@ function read(req, res) {
 module.exports = {
   list: asyncErrorBoundary(list),
   read: [asyncErrorBoundary(reservationExists), read],
-  create: [dataExists, firstNameExists, lastNameExists, mobileNumberExists, reservationDateExists, daysWhenIsOperational, reservationTimeExists, timeWhenIsOperational, peopleExists, asyncErrorBoundary(create)]
+  create: [dataExists, firstNameExists, lastNameExists, mobileNumberExists, reservationDateExists, daysWhenIsOperational, reservationTimeExists, timeWhenIsOperational, peopleExists, validStatusExists, asyncErrorBoundary(create)],
+  update: [asyncErrorBoundary(reservationExists), unkownStatusExists, finishedStatusExists, asyncErrorBoundary(update)]
 };

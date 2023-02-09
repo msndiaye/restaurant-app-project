@@ -170,10 +170,32 @@ async function tableOccupied(req, res, next) {
 
 async function removeTableFromReservation(req, res) {
     const { table_id } = req.params
-    const tables = await service.removeTable(Number(table_id))
+    const { data: { reservation_id } = {} } = req.body
+    let tables;
+    if (reservation_id) {
+        tables = await service.removeTable(Number(table_id), Number(reservation_id))
+
+    }
+    // console.log('intege', reservation_id)
+    tables = await service.removeTable(Number(table_id))
     res.json({
         data: tables
     })
+
+}
+
+
+
+async function reservationSeated(req, res, next) {
+    const { data: { reservation_id } = {} } = req.body
+    const { status } = await service.readReservation(Number(reservation_id))
+    if (status === "seated") {
+        return next({
+            status: 400,
+            message: "The reservation is already seated"
+        })
+    }
+    next()
 
 }
 
@@ -186,12 +208,16 @@ async function list(req, res) {
 }
 
 
+
+
 module.exports = {
     create: [dataExists, tableNameExists, tableNameCharterLength, capacityExists, asyncErrorBoundary(create)],
     list: asyncErrorBoundary(list),
     update: [dataExists, reservationIdExists, reservationExists,
         asyncErrorBoundary(enoughCapacity),
         asyncErrorBoundary(isOccupied),
+        asyncErrorBoundary(reservationSeated)
+        ,
         asyncErrorBoundary(update)],
     delete: [asyncErrorBoundary(tableExists),
     asyncErrorBoundary(tableOccupied),

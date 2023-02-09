@@ -10,7 +10,7 @@ function TableCard({ table_name, capacity, reservation_id, table_id, removeTable
     function modal() {
 
         if (window.confirm("Is this table ready to seat new guests? This cannot be undone.")) {
-            removeTable(table_id)
+            removeTable(table_id, reservation_id)
         }
     }
 
