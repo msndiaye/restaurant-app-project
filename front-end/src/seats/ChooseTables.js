@@ -121,9 +121,6 @@ function Choosetables() {
 
         } else if (people <= capacity) {
 
-
-
-
             try {
                 const response = await fetch(
                     `${API_BASE_URL}/tables/${table}/seat`,
@@ -144,10 +141,7 @@ function Choosetables() {
                     throw error
                 }
 
-
-
-
-                const addSeated = await fetch(
+                await fetch(
                     `${API_BASE_URL}/reservations/${reservation_id}/status`,
                     {
                         method: 'PUT',
@@ -161,9 +155,6 @@ function Choosetables() {
                         }),
                     }
                 );
-
-                const getSeated = await addSeated.json()
-                console.log("get", getSeated)
                 history.push("/dashboard")
             }
             catch (error) {

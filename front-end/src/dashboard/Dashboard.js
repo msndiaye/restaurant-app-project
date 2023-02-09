@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ErrorAlert from "../layout/ErrorAlert";
 import { today, next, previous } from "../utils/date-time";
 import useQuery from "../utils/useQuery";
 import ReservationsCard from "../reservations/components/ReservationsCard"
@@ -9,7 +8,6 @@ import Loader from "../layout/Loader"
 import "./styles/style.css"
 import ErrorAlertContainer from "../errors/ErrorAlertContainer";
 import TablesCards from "../tables/components/TableCards";
-import { listReservations } from "../utils/api";
 import { useHistory } from "react-router-dom";
 /**
  * Defines the dashboard page.
@@ -155,11 +153,6 @@ function Dashboard() {
 
 
       history.push("/reservations")
-
-
-
-
-
 
     }
     catch (error) {
