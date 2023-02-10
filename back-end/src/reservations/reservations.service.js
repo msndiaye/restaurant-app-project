@@ -26,10 +26,21 @@ async function update(reservation_id, status) {
     return reservation
 }
 
+async function search(mobile_number) {
+    const reservations = await knex("reservations")
+        .whereRaw(
+            "translate(mobile_number, '() -', '') like ?",
+            `%${mobile_number.replace(/\D/g, "")}%`
+        )
+        .orderBy("reservation_date");
+    return reservations
+}
+
 
 module.exports = {
     create,
     list,
     read,
-    update
+    update,
+    search
 }

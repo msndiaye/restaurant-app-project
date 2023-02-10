@@ -194,27 +194,35 @@ async function create(req, res) {
 
 async function list(req, res) {
 
-  const { date: defaultDate, reservationDate } = req.query
 
-  const listByDate = defaultDate || reservationDate
-  let reservations = await service.list(listByDate)
+  const { mobile_number, date: defaultDate, reservationDate } = req.query
 
-  // im converting the date and time from the database to a more readable format
-  reservations = reservations.filter(({ status }) => status !== "finished")
-    .map((reservation) => {
-      const { reservation_date, reservation_time } = reservation
-
-      return {
-        ...reservation,
-        reservation_date: moment(reservation_date).format("MM-DD-YYYY"),
-        reservation_time: moment(reservation_time, "HH:mm").format("hh:mm A")
-
-      }
+  if (mobile_number) {
+    const reservations = await service.search(mobile_number)
+    res.json({
+      data: reservations
     })
-  // 
-  res.json({
-    data: reservations,
-  });
+  } else {
+    const listByDate = defaultDate || reservationDate
+    let reservations = await service.list(listByDate)
+
+    // im converting the date and time from the database to a more readable format
+    reservations = reservations.filter(({ status }) => status !== "finished")
+      .map((reservation) => {
+        const { reservation_date, reservation_time } = reservation
+
+        return {
+          ...reservation,
+          reservation_date: moment(reservation_date).format("MM-DD-YYYY"),
+          reservation_time: moment(reservation_time, "HH:mm").format("hh:mm A")
+
+        }
+      })
+    // 
+    res.json({
+      data: reservations,
+    });
+  }
 }
 
 

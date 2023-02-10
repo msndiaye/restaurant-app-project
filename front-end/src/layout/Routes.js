@@ -6,6 +6,7 @@ import NotFound from "./NotFound";
 // import { today } from "../utils/date-time";
 import ReservationsRoute from "../reservations/routes/ReservationsRoute";
 import TableRoute from "../tables/routes/TableRoute";
+import Search from "../search/components/Search";
 /**
  * Defines all the routes for the application.
  *
@@ -29,6 +30,9 @@ function Routes() {
       <Route path="/tables">
         <TableRoute />
       </Route>
+      <Route path="/search">
+        <Search />
+      </Route>
       <Route>
         <NotFound />
       </Route>
@@ -37,3 +41,5 @@ function Routes() {
 }
 
 export default Routes;
+
+
