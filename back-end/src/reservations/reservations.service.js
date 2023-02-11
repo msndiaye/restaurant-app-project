@@ -37,10 +37,18 @@ async function search(mobile_number) {
 }
 
 
+async function updateReservation(reservation_id, data) {
+
+    const [reservation] = await knex("reservations").update(data).where({ reservation_id }).returning("*")
+    return reservation
+
+}
+
 module.exports = {
     create,
     list,
     read,
     update,
-    search
+    search,
+    updateReservation
 }

@@ -226,6 +226,8 @@ async function list(req, res) {
     // im converting the date and time from the database to a more readable format
     reservations = reservations.filter(({ status }) => status !== "finished")
     reservations = formatRerservation(reservations)
+
+
     // 
     res.json({
       data: reservations,
@@ -300,6 +302,18 @@ async function update(req, res) {
 }
 
 
+async function updateReservation(req, res) {
+
+  const { data } = req.body
+  // console.log(req.body.data, data)
+  const { reservation_id } = req.params
+  const reservation = await service.updateReservation(Number(reservation_id), data)
+  res.json({
+    data: reservation
+  })
+
+}
+
 function read(req, res) {
   const { reservation } = res.locals
 
@@ -315,6 +329,13 @@ function read(req, res) {
 module.exports = {
   list: asyncErrorBoundary(list),
   read: [asyncErrorBoundary(reservationExists), read],
-  create: [dataExists, firstNameExists, lastNameExists, mobileNumberExists, reservationDateExists, daysWhenIsOperational, reservationTimeExists, timeWhenIsOperational, peopleExists, validStatusExists, asyncErrorBoundary(create)],
-  update: [asyncErrorBoundary(reservationExists), unkownStatusExists, finishedStatusExists, asyncErrorBoundary(update)]
+  create: [dataExists,
+    firstNameExists, lastNameExists, mobileNumberExists,
+    reservationDateExists, daysWhenIsOperational, reservationTimeExists,
+    timeWhenIsOperational, peopleExists, validStatusExists,
+    asyncErrorBoundary(create)],
+  update: [asyncErrorBoundary(reservationExists), unkownStatusExists, finishedStatusExists, asyncErrorBoundary(update)],
+  updateReservation: [dataExists, firstNameExists, lastNameExists, mobileNumberExists,
+    reservationDateExists, daysWhenIsOperational, reservationTimeExists,
+    timeWhenIsOperational, peopleExists, validStatusExists, asyncErrorBoundary(reservationExists), asyncErrorBoundary(updateReservation)]
 };

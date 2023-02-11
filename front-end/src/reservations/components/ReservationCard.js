@@ -10,6 +10,11 @@ function ReservationCard({ first_name,
     reservation_id, status }) {
 
 
+    function modal() {
+
+        if (window.confirm("Do you want to cancel this reservation? This cannot be undone.")) {
+        }
+    }
 
 
 
@@ -40,6 +45,18 @@ function ReservationCard({ first_name,
                         </Link>
                     </li>
                 }
+
+                {status === "booked" && <li className="list-group-item">
+                    <Link to={`/reservations/${reservation_id}/edit`}>
+                        <button href={`/reservations/${reservation_id}/edit`}>
+                            Edit
+                        </button>
+                    </Link>
+                </li>}
+                <button type="button" className="btn btn-danger"
+                    data-reservation-id-cancel={reservation_id}
+                    onClick={modal}>Cancel</button>
+
             </ul>
         </div>
     )
