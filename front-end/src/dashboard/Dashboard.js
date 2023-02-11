@@ -162,6 +162,32 @@ function Dashboard() {
 
   }
 
+
+
+  async function handleCancelReservation(reservation_id) {
+    await fetch(
+      `${API_BASE_URL}/reservations/${reservation_id}/status`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {
+            status: "cancelled"
+          }
+        }),
+      }
+    );
+
+
+    history.push("/reservations")
+
+  }
+
+
+
+
   function handleNextDate() { setChangeDate((changeDate) => next(changeDate)) }
   function handleTodayDate() { setChangeDate(() => today()) }
   function handlePreviousDate() { setChangeDate((changeDate) => previous(changeDate)) }
@@ -189,6 +215,7 @@ function Dashboard() {
       <ReservationsCard
         reservations={reservations}
         reservationsError={reservationsError}
+        handleCancelReservation={handleCancelReservation}
       />
       <TablesCards
         tables={tables}

@@ -63,6 +63,10 @@ function CreateReservation() {
 
     }
 
+
+
+    console.log(reservationFormData.reservation_date, "date")
+
     return (
         <>
 

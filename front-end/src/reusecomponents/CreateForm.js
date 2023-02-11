@@ -80,7 +80,7 @@ function CreateForm({
                 </div>
             </div>
 
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary">submit</button>
             <button type="button" className="btn btn-primary" onClick={() => history.goBack()}>Cancel</button>
 
         </form>

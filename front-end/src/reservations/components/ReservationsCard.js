@@ -1,7 +1,7 @@
 import React from "react";
 import ReservationCard from "./ReservationCard";
 
-function ReservationsCard({ reservations, reservationsError }) {
+function ReservationsCard({ reservations, reservationsError, handleCancelReservation }) {
 
     if (!reservationsError) {
         return (
@@ -28,6 +28,7 @@ function ReservationsCard({ reservations, reservationsError }) {
                             people={people}
                             reservation_id={reservation_id}
                             status={status}
+                            handleCancelReservation={handleCancelReservation}
                         />
                     })
                 }
