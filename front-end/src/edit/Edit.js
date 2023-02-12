@@ -3,6 +3,7 @@ import { useParams, history, useHistory } from "react-router-dom";
 import CreateForm from "../reusecomponents/CreateForm"
 import moment from "moment"
 import Loader from "..//layout/Loader"
+import FormDataError from "../errors/FormDataError";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5001";
 
 function Edit() {
@@ -38,7 +39,7 @@ function Edit() {
 
                 setReservationFormData({
                     ...data,
-                    reservation_date: moment(data.reservation_date).format("YYYY-DD-MM")
+                    reservation_date: moment(data.reservation_date).format("YYYY-MM-DD")
                 })
             }
             catch (error) {
@@ -80,32 +81,37 @@ function Edit() {
 
 
     async function handleSubmitReservationForm(e) {
+
         e.preventDefault()
-        await fetch(
-            `${API_BASE_URL}/reservations/${reservation_id}`,
-            {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
 
-                    // data: {
-                    //     ...reservationFormData,
-                    //     reservation_date: moment(reservationFormData.reservation_date).format("YYYY-DD-MM")
-                    // }
-                    data: reservationFormData
-                }),
+        try {
+            const response = await await fetch(
+                `${API_BASE_URL}/reservations/${reservation_id}`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+
+                        data: reservationFormData
+                    }),
+                }
+            );
+            const { error } = await response.json()
+
+            if (error) {
+                throw error
             }
-        );
 
+            // const date = moment(reservationFormData.reservation_date).format("YYYY-DD-MM")
+            history.push(`/dashboard/?date=${reservationFormData.reservation_date}`)
+        } catch (error) {
 
-        history.push(`/dashboard/?date=${reservationFormData.reservation_date}`)
-        // history.goBack()
+            setError(error)
+        }
     }
 
-
-    // 04/02/2035
 
     const loading = Object.values(reservationFormData).some(reservation => reservation)
     return (
@@ -115,6 +121,7 @@ function Edit() {
                 <CreateForm handleReservationDataChange={handleReservationDataChange}
                     reservationFormData={reservationFormData}
                     handleSubmitReservationForm={handleSubmitReservationForm} />}
+            <FormDataError error={error} />
         </div>
     )
 }

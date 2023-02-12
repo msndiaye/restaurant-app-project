@@ -3,7 +3,6 @@ import CreateForm from "../../reusecomponents/CreateForm";
 import FormDataError from "../../errors/FormDataError";
 import { create } from "../../services/create";
 import { useHistory } from "react-router";
-import moment from "moment"
 
 function CreateReservation() {
 
@@ -53,6 +52,7 @@ function CreateReservation() {
                 throw error
             }
 
+            console.log("reservation date", reservationFormData.reservation_date)
             history.push(`/dashboard?date=${reservationFormData.reservation_date}`)
 
         } catch (error) {
@@ -65,7 +65,6 @@ function CreateReservation() {
 
 
 
-    console.log(reservationFormData.reservation_date, "date")
 
     return (
         <>
