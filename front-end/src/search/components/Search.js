@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FormDataError from "../../errors/FormDataError";
 import ReservationsCard from "../../reservations/components/ReservationsCard";
 import SearchForm from "./SearchForm";
+import { useHistory } from "react-router-dom";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5001";
 
@@ -11,7 +12,7 @@ function Search() {
     const [search, setSearch] = useState("")
     const [reservations, setReservations] = useState([])
     const [reservationsError, setReservationsError] = useState(null)
-
+    const history = useHistory()
     function handleSearchChange({ target: { value } }) {
         setReservationsError(null)
         setSearch(value)
@@ -42,6 +43,28 @@ function Search() {
 
     }
 
+
+    async function handleCancelReservation(reservation_id) {
+        await fetch(
+            `${API_BASE_URL}/reservations/${reservation_id}/status`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    data: {
+                        status: "cancelled"
+                    }
+                }),
+            }
+        );
+
+
+        history.push("/reservations")
+
+    }
+
     return (
         <div>
             <SearchForm
@@ -51,7 +74,8 @@ function Search() {
 
             <ReservationsCard
                 reservations={reservations}
-                reservationsError={reservationsError} />
+                reservationsError={reservationsError}
+                handleCancelReservation={handleCancelReservation} />
 
             <FormDataError error={reservationsError} />
         </div>

@@ -215,6 +215,7 @@ async function list(req, res) {
 
   if (mobile_number) {
     let reservations = await service.search(mobile_number)
+    reservations = reservations.filter(({ status }) => status !== "finished")
     reservations = formatRerservation(reservations)
     res.json({
       data: reservations
