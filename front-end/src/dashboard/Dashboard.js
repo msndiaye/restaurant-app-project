@@ -98,7 +98,7 @@ function Dashboard() {
       catch (error) {
         if (error.name === "AbortError") {
           // Ignore `AbortError`
-          console.log("Aborted");
+          // console.log("Aborted");
         } else {
           setTablesError(error)
         }
@@ -109,7 +109,7 @@ function Dashboard() {
 
     loadTables()
     return () => {
-      console.log("cleanup");
+      // console.log("cleanup");
       abortController.abort(); // Cancels any pending request or response
     };
 
@@ -131,7 +131,7 @@ function Dashboard() {
       }
 
       );
-      const { data, error } = await response.json();
+      const { error } = await response.json();
 
       if (error) {
 
