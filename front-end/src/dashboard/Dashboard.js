@@ -32,9 +32,12 @@ function Dashboard() {
   const history = useHistory()
   // for loading reservations data
   useEffect(() => {
+
     const abortController = new AbortController()
     setReservationsError(null);
     setReservations([])
+    setRemoveTableError(null)
+
     async function loadReservation() {
       try {
         const response = await fetch(
@@ -113,6 +116,7 @@ function Dashboard() {
   }, [])
 
 
+
   async function removeTable(table_id, reservation_id) {
     setRemoveTableError(null)
 
@@ -187,7 +191,7 @@ function Dashboard() {
 
 
 
-
+  // the button handlers for next, today, and previous
   function handleNextDate() { setChangeDate((changeDate) => next(changeDate)) }
   function handleTodayDate() { setChangeDate(() => today()) }
   function handlePreviousDate() { setChangeDate((changeDate) => previous(changeDate)) }

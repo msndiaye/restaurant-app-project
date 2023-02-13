@@ -4,7 +4,6 @@ const API_BASE_URL =
 
 export async function create(formData, path) {
 
-
     const jsonData = await fetch(`http://localhost:5001/${path}`, {
         method: 'POST',
         headers: {

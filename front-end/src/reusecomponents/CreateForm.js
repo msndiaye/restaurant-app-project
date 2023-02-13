@@ -9,8 +9,6 @@ function CreateForm({
 
     const history = useHistory()
 
-
-
     return (
         <form onSubmit={handleSubmitReservationForm}>
             <div className="row mb-3">

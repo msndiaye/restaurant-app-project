@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"
-
+import "../styles/style.css"
 function ReservationCard({ first_name,
     last_name,
     mobile_number,

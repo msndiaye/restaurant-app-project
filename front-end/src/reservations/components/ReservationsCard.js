@@ -1,6 +1,6 @@
 import React from "react";
 import ReservationCard from "./ReservationCard";
-
+import "../styles/style.css"
 function ReservationsCard({ reservations, reservationsError, handleCancelReservation }) {
 
     if (!reservationsError) {
