@@ -60,7 +60,6 @@ function Dashboard() {
       catch (error) {
         if (error.name === "AbortError") {
           // Ignore `AbortError`
-          // console.log("Aborted");
         } else {
           setReservationsError(error)
         }
