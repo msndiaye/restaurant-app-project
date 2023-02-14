@@ -11,8 +11,8 @@ import TablesCards from "../tables/components/TableCards";
 import { useHistory } from "react-router-dom";
 
 import "./styles/style.css"
-// import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-// dotenv.config()
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config()
 /**
  * Defines the dashboard page.
  * @param date
