@@ -54,14 +54,14 @@ function Dashboard() {
           throw { message: error }
         }
         if (data.length === 0) {
-          throw { message: `No reservation is picked for this ${moment(changeDate).format("MM-DD-YYYY")}` }
+          throw { message: `No reservation is picked for this date ${moment(changeDate).format("MM-DD-YYYY")}` }
         }
         setReservations(data)
       }
       catch (error) {
         if (error.name === "AbortError") {
           // Ignore `AbortError`
-          console.log("Aborted");
+          // console.log("Aborted");
         } else {
           setReservationsError(error)
         }
@@ -71,7 +71,6 @@ function Dashboard() {
 
     loadReservation()
     return () => {
-      console.log("cleanup");
       abortController.abort(); // Cancels any pending request or response
     };
   }, [changeDate])
@@ -212,7 +211,7 @@ function Dashboard() {
         tablesError={tablesError}
         removeTableError={removeTableError}
       />
-
+      <br />
       <ReservationsButtons
         handleNextDate={handleNextDate}
         handleTodayDate={handleTodayDate}
@@ -225,7 +224,7 @@ function Dashboard() {
         reservationsError={reservationsError}
         handleCancelReservation={handleCancelReservation}
       />
-      <br />
+
       <TablesCards
         tables={tables}
         tablesError={tablesError}
