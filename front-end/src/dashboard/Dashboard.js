@@ -21,7 +21,7 @@ import "./styles/style.css"
  */
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5001";
 
-// console.log(API_BASE_URL, "wfdgfdgfdgfdgferwe")
+console.log(API_BASE_URL, "wfdgfdgfdgfdgferwe")
 function Dashboard() {
 
   // this will get the date in the query string or defaulted to today's date
