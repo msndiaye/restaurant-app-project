@@ -49,7 +49,7 @@ function Choosetables() {
             catch (error) {
                 if (error.name === "AbortError") {
                     // Ignore `AbortError`
-                    console.log("Aborted");
+                    // console.log("Aborted");
                 } else {
                     setTablesError(error)
                 }
@@ -57,7 +57,7 @@ function Choosetables() {
         }
         loadTables()
         return () => {
-            console.log("cleanup");
+            // console.log("cleanup");
             abortController.abort(); // Cancels any pending request or response
         };
 
@@ -100,7 +100,7 @@ function Choosetables() {
             abortController.abort(); // Cancels any pending request or response
         };
 
-    }, [])
+    }, [reservation_id]) // i can still omit the reservation_id on the dependency array
 
 
 
@@ -173,7 +173,6 @@ function Choosetables() {
 
     }
 
-    console.log(table)
 
     return (
         <div>
@@ -193,18 +192,6 @@ function Choosetables() {
     )
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

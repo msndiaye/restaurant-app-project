@@ -295,7 +295,6 @@ async function update(req, res) {
   const reservation = await service.update(Number(reservation_id), status)
 
 
-  // console.log("reservation", reservation)
   res.json({
     data: reservation
   })
@@ -306,7 +305,6 @@ async function update(req, res) {
 async function updateReservation(req, res) {
 
   const { data } = req.body
-  // console.log(req.body.data, data)
   const { reservation_id } = req.params
   const reservation = await service.updateReservation(Number(reservation_id), data)
   res.json({

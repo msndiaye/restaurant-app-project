@@ -9,6 +9,7 @@ import "./styles/style.css"
 import ErrorAlertContainer from "../errors/ErrorAlertContainer";
 import TablesCards from "../tables/components/TableCards";
 import { useHistory } from "react-router-dom";
+import "./styles/style.css"
 /**
  * Defines the dashboard page.
  * @param date
@@ -199,10 +200,9 @@ function Dashboard() {
   return (
     <main>
       <h1>Dashboard</h1>
-      <div className="d-md-flex mb-3">
-        <h4 className="mb-0">Reservations for date</h4>
-      </div>
-
+      <br />
+      <h4 >Reservations</h4>
+      <br />
       <ErrorAlertContainer
         reservationsError={reservationsError}
         tablesError={tablesError}
@@ -213,14 +213,15 @@ function Dashboard() {
         handleNextDate={handleNextDate}
         handleTodayDate={handleTodayDate}
         handlePreviousDate={handlePreviousDate} />
-
+      <br />
       {reservations.length === 0 && !reservationsError ? <Loader /> : null}
-
+      <br />
       <ReservationsCard
         reservations={reservations}
         reservationsError={reservationsError}
         handleCancelReservation={handleCancelReservation}
       />
+      <br />
       <TablesCards
         tables={tables}
         tablesError={tablesError}

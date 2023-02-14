@@ -7,6 +7,8 @@ function TablesCards({ tables, tablesError, removeTable }) {
         return (
             <div>
 
+                {tables.length ? <h3>Tables</h3> : null}
+
                 {
                     tables.map(({ table_name, capacity, reservation_id, table_id }) => {
                         return <TableCard

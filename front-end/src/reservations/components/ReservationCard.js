@@ -23,7 +23,7 @@ function ReservationCard({ first_name,
 
 
     return (
-        <div className="card" style={{ width: " 18rem" }}>
+        <div className="card container" style={{ width: " 18rem" }}>
             <div className="card-header">
                 Reservation - {reservation_id}
             </div>

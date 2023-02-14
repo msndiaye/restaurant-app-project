@@ -22,6 +22,7 @@ function Edit() {
     const { reservation_id } = useParams()
 
     const history = useHistory()
+
     useEffect(() => {
         const abortController = new AbortController()
         async function loadReservation() {
@@ -45,7 +46,7 @@ function Edit() {
             catch (error) {
                 if (error.name === "AbortError") {
                     // Ignore `AbortError`
-                    console.log("Aborted");
+                    // console.log("Aborted");
                 } else {
                     setError(error)
                 }
@@ -59,12 +60,12 @@ function Edit() {
         loadReservation()
 
         return () => {
-            console.log("cleanup");
+            // console.log("cleanup");
             abortController.abort(); // Cancels any pending request or response
         };
 
 
-    }, [])
+    }, [reservation_id])   // i can still omit the reservation_id 
 
 
     function handleReservationDataChange({ target }) {
