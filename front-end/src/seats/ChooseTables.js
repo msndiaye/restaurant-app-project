@@ -3,6 +3,8 @@ import TableDataError from "../errors/FormDataError"
 import Tables from "./Tables";
 import Loader from "../layout/Loader"
 import { useParams, useHistory } from "react-router-dom"
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config()
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5001";
 

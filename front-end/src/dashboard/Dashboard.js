@@ -9,7 +9,10 @@ import "./styles/style.css"
 import ErrorAlertContainer from "../errors/ErrorAlertContainer";
 import TablesCards from "../tables/components/TableCards";
 import { useHistory } from "react-router-dom";
+
 import "./styles/style.css"
+// import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+// dotenv.config()
 /**
  * Defines the dashboard page.
  * @param date
@@ -18,6 +21,7 @@ import "./styles/style.css"
  */
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5001";
 
+console.log(API_BASE_URL, "werwe")
 function Dashboard() {
 
   // this will get the date in the query string or defaulted to today's date
@@ -201,7 +205,7 @@ function Dashboard() {
     <main>
       <h1>Dashboard</h1>
       <br />
-      <h4 >Reservations</h4>
+      <h4 >Reservations </h4>
       <br />
       <ErrorAlertContainer
         reservationsError={reservationsError}
