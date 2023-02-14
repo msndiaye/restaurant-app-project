@@ -8,7 +8,7 @@ function TableRoute() {
     return (
 
         <Switch>
-            <Route path="/tables/new">
+            <Route path="/tables/new" exact>
                 <CreateTable />
             </Route>
             <Route>
