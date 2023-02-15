@@ -28,7 +28,9 @@
 
 #APIS
 1. https://reservations-api.onrender.com/tables : list all created tables ready to be seated.
-2. https://reservations-api.onrender.com/reservations: > given the reservation is created for that date will list all reservations for that date
+2. https://reservations-api.onrender.com/reservations:
+>this api will list all reservations given a query string date and a value for the date.
+
 
 ## Installation
 
