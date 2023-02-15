@@ -59,7 +59,7 @@ function CreateReservation() {
         } else if (!last_name.trim()) {
             setError("Please provide the last name")
         } else if (!mobile_number.trim() || !phoneConvert(mobile_number)) {
-            setError("must be a valid usa mobile format ex: 800-555-1212 or 1234567890 format")
+            setError("must be a valid usa mobile number format ex: 800-555-1212 or 1234567890")
         } else if (currentDate === "Tuesday") {
             setError("Please choose different day, the restaurant is closed on Tuesday.")
         } else if (pastDate) {
