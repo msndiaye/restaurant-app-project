@@ -11,13 +11,13 @@
 
 ## Tools Used
 >`React`
->`React Hooks`
+>`React-Hooks`
 >`Reat Router`
 >`Boustrap`
  > `Node`
 >`Express`
 >`Knex`
->`POSTgreSQL`
+>`PostgreSQL`
 >`JavaScript`
 >`HTML5`
 >`Git`
