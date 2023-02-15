@@ -1,6 +1,11 @@
 # Capstone: Restaurant Reservation System
 
 >  https://reservation-rimh.onrender.com
+>API documentation:
+>| backend | apis                                                     |
+| ---------------- | ---------------------------------------------------------------- |
+| `./back-end`     | The backend project, which runs on `localhost:5001` by default.  |
+| `./front-end`    | The frontend project, which runs on `localhost:3000` by default. |
 
 > You have been hired as a full stack developer at _Periodic Tables_, a startup that is creating a reservation system for fine dining restaurants.
 > The software is used only by restaurant personnel when a customer calls to request a reservation.
