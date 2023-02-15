@@ -1,19 +1,13 @@
 # Capstone: Restaurant Reservation System
 
 >  https://reservation-rimh.onrender.com
->API documentation:
->| backend | apis                                                     |
-| ---------------- | ---------------------------------------------------------------- |
-| `./back-end`     | The backend project, which runs on `localhost:5001` by default.  |
-| `./front-end`    | The frontend project, which runs on `localhost:3000` by default. |
 
-> You have been hired as a full stack developer at _Periodic Tables_, a startup that is creating a reservation system for fine dining restaurants.
-> The software is used only by restaurant personnel when a customer calls to request a reservation.
-> At this point, the customers will not access the system online.
+##Goals:
+>The goal of this project is to build a fullstack application (software) for fine dining restaurants.
+>The software is used only by restaurant personnel when a customer calls to request a reservation.
+> The software will manage reservations in order to increase productivity in the restaurant sector.
+> customers will not access the system online.
 
-There are no user stories for deployment: it is expected that you will deploy the application to production after you finish a user story.
-
-There are no user stories for logging: it is expected that you will add logging to the application with enough detail to help you diagnose issues in production.
 
 ## Existing files
 
