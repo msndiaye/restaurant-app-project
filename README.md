@@ -13,15 +13,15 @@
 >`React`
 >`React Hooks`
 >`Reat Router`
-.Boustrap
-.Node
-.Express
-.Knex
-.POSTgreSQL
-.JavaScript
-.HTML5
-.Git
-.CSS
+>`Boustrap`
+ > `Node`
+>`Express`
+>`Knex`
+>`POSTgreSQL`
+>`JavaScript`
+>`HTML5`
+>`Git`
+>`CSS`
 
 ## libraries used
 .momentjs
