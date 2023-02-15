@@ -10,8 +10,8 @@
 
 
 ## Tools Used
-(+) React
-(+) React Hooks
+`React`
+`React Hooks`
 .Reat Router
 .Boustrap
 .Node
