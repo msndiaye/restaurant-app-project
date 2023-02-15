@@ -10,9 +10,9 @@
 
 
 ## Tools Used
-|`React`|
-|`React Hooks`|
-.Reat Router
+>`React`
+>`React Hooks`
+>`Reat Router`
 .Boustrap
 .Node
 .Express
