@@ -6,7 +6,7 @@
 >The goal of this project is to build a fullstack application (software) for fine dining restaurants.
 >The software is used only by restaurant personnel when a customer calls to request a reservation.
 > The software will manage reservations in order to increase productivity in the restaurant sector.
-> customers will not access the system online.
+> Customers will not access the system online.
 
 
 ## Existing files
