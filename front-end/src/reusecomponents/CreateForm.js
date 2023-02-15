@@ -38,6 +38,7 @@ function CreateForm({
                         name="mobile_number"
                         onChange={handleReservationDataChange}
                         value={reservationFormData.mobile_number}
+                        placeholder="800-555-1212 or 1234567890"
                         required />
                 </div>
             </div>

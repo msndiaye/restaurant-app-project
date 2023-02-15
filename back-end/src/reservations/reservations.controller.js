@@ -5,7 +5,7 @@
 const moment = require("moment")
 const service = require("./reservations.service")
 const asyncErrorBoundary = require("../errors/asyncErrorBound")
-
+const phoneConvert = require("./api")
 function dataExists(req, res, next) {
   const { data } = req.body
   if (!data) {
@@ -52,7 +52,13 @@ function mobileNumberExists(req, res, next) {
       status: 400,
       message: "Please enter mobile_number"
     })
+  } else if (!phoneConvert(mobile_number)) {
+    return next({
+      status: 400,
+      message: "must be a valid usa mobile format ex: 800-555-1212 or 1234567890 format"
+    })
   }
+
 
   next()
 }
