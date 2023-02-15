@@ -24,7 +24,7 @@
 >`CSS`
 
 ## libraries used
-.momentjs
+>`momentjs`
 
 ## Installation
 
