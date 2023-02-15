@@ -36,3 +36,6 @@
 1. Run `npm install` to install project dependencies.
 1. Run `npm run start:dev` to start your server in development mode.
 
+##Takeways
+>In this project i learned a lot about error debugging, how to build a fullstack application, and finally how to deploy a fullstack application.
+
