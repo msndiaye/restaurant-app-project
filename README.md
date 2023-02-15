@@ -28,7 +28,7 @@
 
 #APIS
 1. https://reservations-api.onrender.com/tables : list all created tables ready to be seated.
-2. https://reservations-api.onrender.com/reservations : this will only work when there a query string such as https://reservations-api.onrender.com/reservations?date="2023-02-14" given the reservation is created for that date
+2. https://reservations-api.onrender.com/reservations?date="2023-02-14" given the reservation is created for that date
 ## Installation
 
 1. Fork and clone this repository.
