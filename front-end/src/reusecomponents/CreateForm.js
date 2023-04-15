@@ -22,7 +22,7 @@ function CreateForm({
                 </div>
             </div>
             <div className="row mb-3">
-                <label htmlFor="lastName" className="col-sm-2 col-form-label">last Name:</label>
+                <label htmlFor="lastName" className="col-sm-2 col-form-label">Last Name:</label>
                 <div className="col-sm-10">
                     <input type="text" className="form-control" id="lastName"
                         name="last_name"
@@ -79,7 +79,7 @@ function CreateForm({
                 </div>
             </div>
 
-            <button type="submit" className="btn btn-primary">submit</button>
+            <button type="submit" className="btn btn-primary">Submit</button>
             <button type="button" className="btn btn-primary" onClick={() => history.goBack()}>Cancel</button>
 
         </form>

@@ -12,7 +12,8 @@ function ErrorAlert({ error }) {
 
   return (
     error && (
-      <div className="alert alert-danger m-2">Notice: {error.message}</div>
+      <p className="alert m-2"
+        style={{ textAlign: "center" }}>Notice: {error.message}</p>
     )
   );
 }
